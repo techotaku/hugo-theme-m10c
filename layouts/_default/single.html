@@ -12,13 +12,18 @@
           {{ .ReadingTime }} min read
         </div>
         <div>
+          {{ partial "icon.html" "folder" }}
+          {{ with .Params.categories }}
+            {{ range . }}
+              <a class="tag" href="{{ "categories" | relURL }}/{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
+          {{ end }}
           {{ partial "icon.html" "tag" }}
-          {{ range .Param "tags" -}}
-            {{- $name := . -}}
-            {{- with $.Site.GetPage (printf "/%s/%s" "tags" $name) -}}
-              <a class="tag" href="{{ .Permalink }}">{{ $name }}</a>
-            {{- end -}}
-          {{- end -}}
+          {{ with .Params.tags }}
+            {{ range . }}
+              <a class="tag" href="{{ "tags" | relURL }}/{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
+          {{ end }}
         </div>
       </div>
     </header>
