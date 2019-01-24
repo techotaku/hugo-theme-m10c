@@ -4,11 +4,11 @@
       <h1 class ="post-title">{{ .Title }}</h1>
       <div class="post-meta">
         <div>
-          {{ partial "icon.html" "calendar" }}
+          {{ partial "icon.html" "calendar" }}&nbsp;
           {{ .PublishDate.Format "Jan 2, 2006" }}
         </div>
         <div>
-          {{ partial "icon.html" "clock" }}
+          {{ partial "icon.html" "clock" }}&nbsp;
           {{ .ReadingTime }} min read
         </div>
         <div>
@@ -17,7 +17,7 @@
             {{ range . }}
               <a class="tag" href="{{ "categories" | relURL }}/{{ . | urlize }}">{{ . }}</a>
             {{ end }}
-          {{ end }}
+          {{ end }}&nbsp;
           {{ partial "icon.html" "tag" }}
           {{ with .Params.tags }}
             {{ range . }}
