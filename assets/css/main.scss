@@ -78,8 +78,10 @@ pre {
   }
 }
 
-.app-header-bottom {
-  color: $lightest-color;
+.app-header-copyright {
+  a {
+    color: $light-color;
+  }
 }
 
 .icon {

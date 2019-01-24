@@ -5,10 +5,13 @@
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo {{ .Hugo.Version }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="{{ .Site.Params.author | default "John Doe" }}" />
+    <meta name="author" content="{{ .Site.Author.name | default "John Doe" }}" />
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
     {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
+    {{ with .OutputFormats.Get "rss" -}}
+      {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
   </head>
   <body>
     <header class="app-header">
@@ -23,8 +26,11 @@
           <a target="_blank" href="{{ .url }}">{{ partial "icon.html" .name }}</a>
         {{ end }}
       </div>
-      <div class="app-header-bottom">
-      <p>{{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Params.author | default "John Doe" }}</p>
+      <div class="app-header-copyright">
+      <p>
+      {{ if isset .Site.Params "license" }}<a href="{{ .Site.Params.license.url | default "#" }}" target="_blank" title="{{ .Site.Params.license.title }}">{{ .Site.Params.license.name }}</a><br />{{ end }}
+      {{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Author.name | default "John Doe" }}
+      </p>
       {{ template "_internal/google_analytics_async.html" . }}
       </div>
     </header>
