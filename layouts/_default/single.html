@@ -4,31 +4,40 @@
       <h1 class ="post-title">{{ .Title }}</h1>
       <div class="post-meta">
         <div>
-          {{ partial "icon.html" "calendar" }}&nbsp;
+          {{ partial "icon.html" (dict "ctx" $ "name" "calendar" "title" "Publish Date") }}
           {{ .PublishDate.Format "Jan 2, 2006" }}
         </div>
         <div>
-          {{ partial "icon.html" "clock" }}&nbsp;
+          {{ partial "icon.html" (dict "ctx" $ "name" "clock" "title" "Reading Time") }}
           {{ .ReadingTime }} min read
         </div>
+        {{- with .Params.categories -}}
         <div>
-          {{ partial "icon.html" "folder" }}
-          {{ with .Params.categories }}
-            {{ range . }}
-              <a class="tag" href="{{ "categories" | relURL }}/{{ . | urlize }}">{{ . }}</a>
-            {{ end }}
-          {{ end }}&nbsp;
-          {{ partial "icon.html" "tag" }}
-          {{ with .Params.tags }}
-            {{ range . }}
-              <a class="tag" href="{{ "tags" | relURL }}/{{ . | urlize }}">{{ . }}</a>
-            {{ end }}
-          {{ end }}
+          {{ partial "icon.html" (dict "ctx" $ "name" "folder" "title" "Category") }}
+          {{ range . -}}
+            {{- with $.Site.GetPage (printf "/%s/%s" "categories" . ) -}}
+              <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+            {{- end -}}
+          {{- end -}}
         </div>
+        {{- end -}}
+        {{- with .Params.tags -}}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "tag" "title" "Tag") }}
+          {{ range . -}}
+            {{- with $.Site.GetPage (printf "/%s/%s" "tags" . ) -}}
+              <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+            {{- end -}}
+          {{- end -}}
+        </div>
+        {{- end -}}
       </div>
     </header>
     <div class="post-content">
       {{ .Content }}
+    </div>
+    <div class="post-footer">
+      {{ template "_internal/disqus.html" . }}
     </div>
   </article>
 {{ end }}
