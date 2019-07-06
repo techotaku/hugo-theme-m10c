@@ -34,7 +34,7 @@
       <div class="app-header-copyright">
       <p>
       {{ if isset .Site.Params "license" }}<a href="{{ .Site.Params.license.url | default "#" }}" target="_blank" title="{{ .Site.Params.license.title }}">{{ .Site.Params.license.name }}</a><br />{{ end }}
-      {{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Author.name | default "John Doe" }}
+      {{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Params.author | default "John Doe" }}
       </p>
       </div>
     </header>
