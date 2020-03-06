@@ -28,14 +28,14 @@
       <p>{{ .Site.Params.description | default "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium." }}</p>
       <div class="app-header-social">
         {{ range .Site.Params.social }}
-          <a target="_blank" href="{{ .url }}">{{ partial "icon.html" (dict "ctx" $ "name" .name "title" .title ) }}</a>
+          <a target="_blank" href="{{ .url }}" rel="noreferrer noopener">{{ partial "icon.html" (dict "ctx" $ "name" .name "title" .title ) }}</a>
         {{ end }}
       </div>
       <div class="app-header-copyright">
-      <p>
-      {{ if isset .Site.Params "license" }}<a href="{{ .Site.Params.license.url | default "#" }}" target="_blank" title="{{ .Site.Params.license.title }}">{{ .Site.Params.license.name }}</a><br />{{ end }}
-      {{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Params.author | default "John Doe" }}
-      </p>
+        <p>
+          {{ if isset .Site.Params "license" }}<a href="{{ .Site.Params.license.url | default "#" }}" target="_blank" title="{{ .Site.Params.license.title }}">{{ .Site.Params.license.name }}</a><br />{{ end }}
+          {{ now.Year }}&nbsp;&copy;&nbsp;{{ .Site.Params.author | default "John Doe" }}
+        </p>
       </div>
     </header>
     <main class="app-container">
