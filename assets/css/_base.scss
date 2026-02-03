@@ -17,6 +17,10 @@ h1, h2, h3, h4, h5, h6 {
   color: $lightest-color;
 }
 
+img {
+  max-width: 100%;
+}
+
 a {
   color: $primary-color;
   transition: color 0.35s;
@@ -62,4 +66,16 @@ pre {
 }
 ::-moz-selection {
   background: rgba($light-color, .25);
+}
+
+@media (max-width: 940px) {
+  h1, h2, h3, h4, h5, h6 {
+    margin-block-start: 0.33em;
+    margin-block-end: 0.33em;
+  }
+
+  p {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
 }
